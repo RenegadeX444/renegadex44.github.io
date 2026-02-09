@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="sr">
 <head>
   <meta charset="utf-8" />
@@ -34,7 +35,9 @@
       text-rendering:optimizeLegibility;
     }
     a{color:inherit}
+
     .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 56px}
+
     header{
       position:relative;
       padding:42px 22px 22px;
@@ -43,18 +46,27 @@
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
       box-shadow: var(--shadow);
       overflow:hidden;
+
+      /* FIX: zakucaj stacking context da :before ne “curi” preko mobilnog layouta */
+      isolation: isolate;
     }
-    header:before{
+    header::before{
       content:"";
-      position:absolute; inset:-2px;
+      position:absolute;
+      inset:-2px; /* ako i dalje pravi fleku, promeni u inset:0; */
       background:
         radial-gradient(800px 240px at 20% 0%, rgba(215,179,106,.22), transparent 60%),
         radial-gradient(520px 240px at 100% 10%, rgba(255,255,255,.10), transparent 60%);
       pointer-events:none;
       filter:saturate(110%);
+      z-index:0; /* FIX: pseudo-element ide iza sadržaja headera */
     }
-    .kicker{
+    header > *{
       position:relative;
+      z-index:1; /* FIX: sadržaj headera iznad ::before */
+    }
+
+    .kicker{
       display:inline-flex;
       gap:10px;
       align-items:center;
@@ -70,14 +82,12 @@
     }
     .dot{width:8px;height:8px;border-radius:10px;background:var(--gold); box-shadow:0 0 0 4px rgba(215,179,106,.16)}
     h1{
-      position:relative;
       margin:18px 0 10px;
       font-size: clamp(38px, 6vw, 72px);
       line-height:1.05;
       letter-spacing:.01em;
     }
     .sub{
-      position:relative;
       margin:0;
       color:var(--muted);
       font-size: clamp(16px, 2.2vw, 20px);
@@ -85,13 +95,19 @@
       max-width: 70ch;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
+
     .grid{
       display:grid;
       grid-template-columns: 1.1fr .9fr;
       gap:18px;
       margin-top:18px;
+
+      /* FIX: podigni kartice u svoj sloj u odnosu na header efekat */
+      position: relative;
+      z-index: 1;
     }
     @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+
     .card{
       border:1px solid var(--line);
       border-radius: var(--r);
@@ -106,6 +122,7 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       letter-spacing:.02em;
     }
+
     .pillrow{
       display:flex; flex-wrap:wrap; gap:10px;
       margin-top:14px;
@@ -121,6 +138,7 @@
       color: rgba(255,255,255,.86);
     }
     .pill b{font-weight:650; color:white}
+
     .timeline{display:grid; gap:12px; margin:10px 0 0}
     .item{
       display:grid;
@@ -143,6 +161,7 @@
       line-height:1.55;
     }
     .desc strong{color: rgba(255,255,255,.92)}
+
     .countdown{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
@@ -159,6 +178,7 @@
     }
     .num{font-size:24px; font-weight:800; color:white; line-height:1.1}
     .lbl{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,255,255,.66)}
+
     footer{
       margin-top:18px;
       color: rgba(255,255,255,.58);
@@ -260,7 +280,7 @@
       const sec = Math.floor(diff/1000);
       const days = Math.floor(sec / 86400);
       const hours = Math.floor((sec % 86400) / 3600);
-      const mins = Math.floor((sec % 3600) / 60);
+      const mins = Math.floor((sec % 3600) /  60);
       const secs = sec % 60;
 
       document.getElementById("d").textContent = days;
@@ -271,7 +291,7 @@
     tick();
     setInterval(tick, 1000);
 
-    // TODO: Zalepi pravi Google Maps link hotela ovde:
+    // Zalepi pravi Google Maps link hotela ovde (ako imaš):
     document.getElementById("mapsLink").href = "https://maps.google.com/?q=Hotel+Vila+Moskva";
     document.getElementById("mapsLink").target = "_blank";
     document.getElementById("mapsLink").rel = "noopener";
