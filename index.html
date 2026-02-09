@@ -36,7 +36,13 @@
     }
     a{color:inherit}
 
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 56px}
+    .wrap{
+      max-width:var(--max); 
+      margin:0 auto; 
+      padding:28px 18px 56px;
+      /* KLJUČNO: solid pozadina da blokira body gradient kroz gap */
+      background: var(--bg);
+    }
 
     header{
       position:relative;
@@ -46,7 +52,6 @@
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
       box-shadow: var(--shadow);
       overflow:hidden;
-      isolation: isolate;
     }
     header::before{
       content:"";
@@ -99,21 +104,11 @@
     @media (max-width:900px){ .grid{grid-template-columns:1fr} }
 
     .card{
-      position:relative;
       border:1px solid var(--line);
       border-radius: var(--r);
       background: linear-gradient(180deg, var(--card2), var(--card));
+      box-shadow: 0 12px 35px rgba(0,0,0,.35);
       padding:18px;
-      
-      /* KRITIČNO: uklanjam box-shadow (čest uzrok seam-a na iOS) i dodajem margin za razmak */
-      margin-bottom: 8px;
-      
-      /* iOS Safari workarounds */
-      overflow: hidden;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
     }
     .card h2{
       margin:2px 0 10px;
@@ -206,7 +201,7 @@
 
       <div class="pillrow" aria-label="Brzi detalji">
         <div class="pill"><b>Datum:</b> 3. oktobar 2026</div>
-        <div class="pill"><b>Grad:</b> (unesi grad po želji)</div>
+        <div class="pill"><b>Grad:</b> Beograd</div>
         <div class="pill"><b>Lokacija:</b> Hotel Vila Moskva</div>
       </div>
     </header>
@@ -290,7 +285,7 @@
     tick();
     setInterval(tick, 1000);
 
-    document.getElementById("mapsLink").href = "https://maps.google.com/?q=Hotel+Vila+Moskva";
+    document.getElementById("mapsLink").href = "https://maps.google.com/?q=Hotel+Vila+Moskva+Beograd";
     document.getElementById("mapsLink").target = "_blank";
     document.getElementById("mapsLink").rel = "noopener";
   </script>
