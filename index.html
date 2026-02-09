@@ -126,7 +126,7 @@
 
     .grid{
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: repeat(3, 1fr);
       gap:18px;
       margin-top:18px;
     }
@@ -224,6 +224,75 @@
     .num{font-size:26px; font-weight:800; color:var(--txt); line-height:1.1}
     .lbl{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color: var(--muted); margin-top:4px}
 
+    /* RSVP Form */
+    .rsvp-form{
+      margin-top:14px;
+    }
+    .form-group{
+      margin-bottom:14px;
+    }
+    .form-group label{
+      display:block;
+      margin-bottom:6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:14px;
+      font-weight:600;
+      color: var(--txt);
+    }
+    .form-group input,
+    .form-group select{
+      width:100%;
+      padding:10px 12px;
+      border:1.5px solid var(--line);
+      border-radius:10px;
+      background: rgba(249,245,240,.4);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:14px;
+      color: var(--txt);
+      transition: border .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus{
+      outline:none;
+      border-color: var(--gold);
+      background: #fff;
+    }
+    .radio-group{
+      display:flex;
+      gap:16px;
+      margin-top:8px;
+    }
+    .radio-group label{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-weight:400;
+      cursor:pointer;
+    }
+    .radio-group input[type="radio"]{
+      width:auto;
+      accent-color: var(--gold);
+    }
+    .submit-btn{
+      width:100%;
+      padding:12px;
+      margin-top:10px;
+      border:none;
+      border-radius:12px;
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      color:#fff;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:15px;
+      font-weight:700;
+      letter-spacing:.05em;
+      cursor:pointer;
+      transition: all .3s;
+    }
+    .submit-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(201,169,97,.35);
+    }
+
     footer{
       margin-top:22px;
       color: var(--muted);
@@ -316,6 +385,48 @@
           </a>
         </div>
       </aside>
+
+      <section class="card">
+        <h2>Potvrdite dolazak</h2>
+        <form class="rsvp-form" id="rsvpForm">
+          <div class="form-group">
+            <label for="name">Vaše ime i prezime</label>
+            <input type="text" id="name" name="name" required placeholder="npr. Marija i Petar Petrović">
+          </div>
+
+          <div class="form-group">
+            <label for="guests">Broj gostiju</label>
+            <select id="guests" name="guests" required>
+              <option value="">Izaberite...</option>
+              <option value="1">1 osoba</option>
+              <option value="2">2 osobe</option>
+              <option value="3">3 osobe</option>
+              <option value="4">4 osobe</option>
+              <option value="5">5+ osoba</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Dolazite?</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="attending" value="yes" required>
+                Da, dolazimo!
+              </label>
+              <label>
+                <input type="radio" name="attending" value="no">
+                Ne možemo prisustvovati
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Pošalji potvrdu</button>
+        </form>
+
+        <div class="mini" style="border-top:none; padding-top:8px;">
+          <small>Molimo vas da potvrdite dolazak do <strong>20. septembra 2026</strong>.</small>
+        </div>
+      </section>
     </div>
 
     <footer>
@@ -324,6 +435,7 @@
   </div>
 
   <script>
+    // Countdown
     const target = new Date(2026, 9, 3, 11, 0, 0);
     const pad = (n) => String(n).padStart(2, "0");
 
@@ -351,6 +463,23 @@
     }
     tick();
     setInterval(tick, 1000);
+
+    // RSVP Form (mailto fallback - zameni sa Web3Forms za pravi email)
+    document.getElementById('rsvpForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const guests = document.getElementById('guests').value;
+      const attending = document.querySelector('input[name="attending"]:checked').value;
+      
+      const subject = `RSVP: ${name}`;
+      const body = `Ime: ${name}%0ABroj gostiju: ${guests}%0ADolazak: ${attending === 'yes' ? 'Da' : 'Ne'}`;
+      
+      // PRIVREMENO: mailto (otvori email klijent)
+      window.location.href = `mailto:tvoj-email@example.com?subject=${subject}&body=${body}`;
+      
+      // ZA PRAVI EMAIL: zameni sa Web3Forms (vidi komentar ispod)
+    });
   </script>
 </body>
 </html>
