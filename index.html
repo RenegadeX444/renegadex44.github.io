@@ -46,25 +46,20 @@
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
       box-shadow: var(--shadow);
       overflow:hidden;
-
-      /* FIX: zakucaj stacking context da :before ne “curi” preko mobilnog layouta */
       isolation: isolate;
     }
     header::before{
       content:"";
       position:absolute;
-      inset:-2px; /* ako i dalje pravi fleku, promeni u inset:0; */
+      inset:0; /* bitno: ne širi se van headera */
       background:
         radial-gradient(800px 240px at 20% 0%, rgba(215,179,106,.22), transparent 60%),
         radial-gradient(520px 240px at 100% 10%, rgba(255,255,255,.10), transparent 60%);
       pointer-events:none;
       filter:saturate(110%);
-      z-index:0; /* FIX: pseudo-element ide iza sadržaja headera */
+      z-index:0;
     }
-    header > *{
-      position:relative;
-      z-index:1; /* FIX: sadržaj headera iznad ::before */
-    }
+    header > *{ position:relative; z-index:1; }
 
     .kicker{
       display:inline-flex;
@@ -101,8 +96,6 @@
       grid-template-columns: 1.1fr .9fr;
       gap:18px;
       margin-top:18px;
-
-      /* FIX: podigni kartice u svoj sloj u odnosu na header efekat */
       position: relative;
       z-index: 1;
     }
@@ -114,6 +107,10 @@
       background: linear-gradient(180deg, var(--card2), var(--card));
       box-shadow: 0 12px 35px rgba(0,0,0,.35);
       padding:18px;
+
+      /* Safari/iOS workaround: natera element u svoj compositing layer */
+      -webkit-transform: translate3d(0,0,0);
+      transform: translate3d(0,0,0);
     }
     .card h2{
       margin:2px 0 10px;
@@ -262,8 +259,7 @@
   </div>
 
   <script>
-    // Odbrojavanje do 3. oktobra 2026 (lokalno vreme posetioca).
-    const target = new Date(2026, 9, 3, 11, 0, 0); // mesec: 0=jan, 9=okt
+    const target = new Date(2026, 9, 3, 11, 0, 0);
     const pad = (n) => String(n).padStart(2, "0");
 
     function tick(){
@@ -280,7 +276,7 @@
       const sec = Math.floor(diff/1000);
       const days = Math.floor(sec / 86400);
       const hours = Math.floor((sec % 86400) / 3600);
-      const mins = Math.floor((sec % 3600) /  60);
+      const mins = Math.floor((sec % 3600) / 60);
       const secs = sec % 60;
 
       document.getElementById("d").textContent = days;
@@ -291,7 +287,6 @@
     tick();
     setInterval(tick, 1000);
 
-    // Zalepi pravi Google Maps link hotela ovde (ako imaš):
     document.getElementById("mapsLink").href = "https://maps.google.com/?q=Hotel+Vila+Moskva";
     document.getElementById("mapsLink").target = "_blank";
     document.getElementById("mapsLink").rel = "noopener";
