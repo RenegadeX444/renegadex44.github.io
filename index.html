@@ -28,16 +28,18 @@
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      color:var(--txt);
-      background:
-        radial-gradient(900px 700px at 70% 15%, rgba(212,168,159,.15), transparent 60%),
-        radial-gradient(700px 500px at 20% 70%, rgba(232,215,181,.2), transparent 65%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
-    }
+  margin:0;
+  color:var(--txt);
+  /* SOLID boja MORA biti prva da Safari je detektuje */
+  background-color: var(--bg);  /* <- dodaj ovo */
+  background-image:
+    radial-gradient(900px 700px at 70% 15%, rgba(212,168,159,.15), transparent 60%),
+    radial-gradient(700px 500px at 20% 70%, rgba(232,215,181,.2), transparent 65%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
     a{color:inherit}
 
     .wrap{
