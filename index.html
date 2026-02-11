@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4ede3" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!-- Pokušaj sa tamnijom bojom -->
+  <meta name="theme-color" content="#e8dac8" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>Ksenija & Marko — 3. oktobar 2026</title>
   <meta name="description" content="Pozivnica: Ksenija i Marko — 3. oktobar 2026. Satnica: 11:00 skup svatova, 14:00 crkva, 17:00 gradsko venčanje (Vila Moskva, Novi Sad)." />
@@ -26,35 +26,22 @@
     }
     *{box-sizing:border-box}
     
+    /* iOS Safari fix - solid tamna boja za html i body */
     html{
-      background: #f9f5f0;
+      background: #e8dac8;
       min-height: 100%;
-    }
-    
-    /* iOS Safari status bar fix - dodaj nevidljivi fixed element */
-    body::before{
-      content:"";
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      height: env(safe-area-inset-top, 44px);
-      background: #f9f5f0;
-      z-index:9999;
-      pointer-events:none;
     }
     
     body{
       margin:0;
-      min-height: 100%;
-      padding-top: env(safe-area-inset-top, 0);
+      min-height: 100vh;
       color:var(--txt);
-      background-color: var(--bg);
-      background-image:
+      /* Počni sa tamnijom bojom pa prelazi u svetliju */
+      background: 
         radial-gradient(1100px 800px at 70% 10%, rgba(212,168,159,.14), transparent 65%),
         radial-gradient(800px 600px at 15% 50%, rgba(232,215,181,.18), transparent 65%),
         radial-gradient(900px 700px at 85% 80%, rgba(201,169,97,.10), transparent 65%),
-        linear-gradient(180deg, #f9f5f0, #f4ede3 50%, #f0e8dc);
+        linear-gradient(180deg, #e8dac8 0%, #f4ede3 15%, #f9f5f0 40%, #f4ede3 70%, #f0e8dc 100%);
       font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
       -webkit-font-smoothing:antialiased;
       text-rendering:optimizeLegibility;
@@ -150,7 +137,7 @@
     }
     .detail-pill b{font-weight:650; color:var(--txt)}
 
-    /* Floral Divider - SMANJEN RAZMAK */
+    /* Floral Divider */
     .divider{
       margin:35px auto;
       width:100%;
@@ -162,7 +149,7 @@
       background-position:center;
     }
 
-    /* Sections - SMANJEN RAZMAK */
+    /* Sections */
     section{
       margin:30px auto;
       max-width:650px;
@@ -176,7 +163,7 @@
       font-weight:600;
     }
 
-    /* Timeline - transparent background */
+    /* Timeline */
     .timeline{
       display:grid;
       gap:18px;
