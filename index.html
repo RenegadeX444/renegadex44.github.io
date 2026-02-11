@@ -63,24 +63,24 @@
       position:relative;
       width: clamp(240px, 40vw, 320px);
       height: clamp(240px, 40vw, 320px);
-      margin:0 auto 30px;
+      margin:0 auto 50px;
     }
     
-    /* Cvjetni dekor oko rame */
+    /* Cvjetni dekor oko rame - VEĆI CVETOVI */
     .photo-frame::before{
       content:"";
       position:absolute;
-      top:-20px;
-      left:-20px;
-      right:-20px;
-      bottom:-20px;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360"><ellipse cx="60" cy="70" rx="30" ry="44" fill="%23f4dcd1" opacity="0.65" transform="rotate(-25 60 70)"/><ellipse cx="300" cy="80" rx="32" ry="46" fill="%23ecc4b5" opacity="0.6" transform="rotate(25 300 80)"/><ellipse cx="70" cy="290" rx="28" ry="42" fill="%23f0d4c8" opacity="0.55" transform="rotate(35 70 290)"/><ellipse cx="290" cy="280" rx="30" ry="44" fill="%23f7e6dc" opacity="0.6" transform="rotate(-30 290 280)"/><ellipse cx="40" cy="180" rx="24" ry="38" fill="%23e8cfc1" opacity="0.5" transform="rotate(-15 40 180)"/><ellipse cx="320" cy="190" rx="26" ry="40" fill="%23f4dcd1" opacity="0.55" transform="rotate(20 320 190)"/><circle cx="180" cy="35" r="7" fill="%23d4a89f" opacity="0.7"/><circle cx="180" cy="325" r="7" fill="%23d4a89f" opacity="0.7"/><ellipse cx="180" cy="50" rx="18" ry="28" fill="%23f0d4c8" opacity="0.5" transform="rotate(0 180 50)"/><ellipse cx="180" cy="310" rx="18" ry="28" fill="%23ecc4b5" opacity="0.5" transform="rotate(0 180 310)"/></svg>');
+      top:-35px;
+      left:-35px;
+      right:-35px;
+      bottom:-35px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 390"><ellipse cx="70" cy="80" rx="42" ry="60" fill="%23f4dcd1" opacity="0.7" transform="rotate(-25 70 80)"/><ellipse cx="320" cy="90" rx="45" ry="64" fill="%23ecc4b5" opacity="0.65" transform="rotate(25 320 90)"/><ellipse cx="80" cy="310" rx="40" ry="58" fill="%23f0d4c8" opacity="0.6" transform="rotate(35 80 310)"/><ellipse cx="310" cy="300" rx="43" ry="62" fill="%23f7e6dc" opacity="0.65" transform="rotate(-30 310 300)"/><ellipse cx="50" cy="195" rx="36" ry="54" fill="%23e8cfc1" opacity="0.55" transform="rotate(-15 50 195)"/><ellipse cx="340" cy="205" rx="38" ry="56" fill="%23f4dcd1" opacity="0.6" transform="rotate(20 340 205)"/><circle cx="195" cy="40" r="10" fill="%23d4a89f" opacity="0.75"/><circle cx="195" cy="350" r="10" fill="%23d4a89f" opacity="0.75"/><ellipse cx="195" cy="60" rx="28" ry="42" fill="%23f0d4c8" opacity="0.55" transform="rotate(0 195 60)"/><ellipse cx="195" cy="330" rx="28" ry="42" fill="%23ecc4b5" opacity="0.55" transform="rotate(0 195 330)"/><ellipse cx="120" cy="50" rx="24" ry="38" fill="%23f7e6dc" opacity="0.5" transform="rotate(-35 120 50)"/><ellipse cx="270" cy="50" rx="24" ry="38" fill="%23e8cfc1" opacity="0.5" transform="rotate(35 270 50)"/><ellipse cx="120" cy="340" rx="24" ry="38" fill="%23f4dcd1" opacity="0.5" transform="rotate(35 120 340)"/><ellipse cx="270" cy="340" rx="24" ry="38" fill="%23ecc4b5" opacity="0.5" transform="rotate(-35 270 340)"/></svg>');
       background-size:contain;
       background-repeat:no-repeat;
       background-position:center;
       pointer-events:none;
       z-index:0;
-      opacity:0.8;
+      opacity:0.85;
     }
 
     .photo-circle{
@@ -104,28 +104,29 @@
       display:block;
     }
 
-    /* Glassmorphism overlay sa imenima */
+    /* Glassmorphism overlay - ISPOD SLIKE */
     .photo-overlay{
       position:absolute;
-      bottom:12%;
+      bottom:-30px;
       left:50%;
       transform:translateX(-50%);
-      width:88%;
-      padding:16px 24px;
-      background: rgba(255,255,255,.3);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      width:110%;
+      max-width:400px;
+      padding:18px 28px;
+      background: rgba(255,255,255,.35);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border:1.5px solid rgba(255,255,255,.5);
-      border-radius:24px;
+      border-radius:26px;
       box-shadow: 
-        0 8px 32px rgba(122,92,74,.2),
-        inset 0 1px 0 rgba(255,255,255,.6);
+        0 10px 35px rgba(122,92,74,.22),
+        inset 0 1px 0 rgba(255,255,255,.7);
       z-index:2;
     }
     
     .photo-overlay h1{
       margin:0;
-      font-size: clamp(26px, 5vw, 40px);
+      font-size: clamp(28px, 5.5vw, 44px);
       line-height:1.1;
       letter-spacing:.02em;
       color: var(--txt);
@@ -414,6 +415,13 @@
         gap:14px;
         padding:14px 16px;
       }
+      .photo-frame{
+        margin-bottom:60px;
+      }
+      .photo-overlay{
+        bottom:-35px;
+        width:120%;
+      }
     }
   </style>
 </head>
@@ -427,7 +435,7 @@
       <div class="photo-frame">
         <div class="photo-circle">
           <!-- ZAMENI 'couple.jpg' sa pravom putanjom do vaše slike -->
-          <img src="images/slika.jpg" alt="Ksenija i Marko">
+          <img src="couple.jpg" alt="Ksenija i Marko">
         </div>
         <div class="photo-overlay">
           <h1>Ksenija <span class="amp">&</span> Marko</h1>
