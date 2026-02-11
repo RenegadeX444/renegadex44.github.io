@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#f9f5f0" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>Ksenija & Marko — 3. oktobar 2026</title>
   <meta name="description" content="Pozivnica: Ksenija i Marko — 3. oktobar 2026. Satnica: 11:00 skup svatova, 14:00 crkva, 17:00 gradsko venčanje (Vila Moskva, Novi Sad)." />
 
@@ -26,13 +27,27 @@
     *{box-sizing:border-box}
     
     html{
-      background-color: #f9f5f0;
+      background: #f9f5f0;
       min-height: 100%;
+    }
+    
+    /* iOS Safari status bar fix - dodaj nevidljivi fixed element */
+    body::before{
+      content:"";
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height: env(safe-area-inset-top, 44px);
+      background: #f9f5f0;
+      z-index:9999;
+      pointer-events:none;
     }
     
     body{
       margin:0;
       min-height: 100%;
+      padding-top: env(safe-area-inset-top, 0);
       color:var(--txt);
       background-color: var(--bg);
       background-image:
@@ -135,9 +150,9 @@
     }
     .detail-pill b{font-weight:650; color:var(--txt)}
 
-    /* Floral Divider */
+    /* Floral Divider - SMANJEN RAZMAK */
     .divider{
-      margin:55px auto;
+      margin:35px auto;
       width:100%;
       max-width:420px;
       height:65px;
@@ -147,13 +162,13 @@
       background-position:center;
     }
 
-    /* Sections - CLEAN, NO BACKGROUNDS */
+    /* Sections - SMANJEN RAZMAK */
     section{
-      margin:45px auto;
+      margin:30px auto;
       max-width:650px;
     }
     section h2{
-      margin:0 0 24px;
+      margin:0 0 20px;
       font-size: clamp(22px, 3.5vw, 28px);
       color: var(--txt);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -198,7 +213,7 @@
     .desc strong{color: var(--txt)}
     
     .note{
-      margin-top:22px;
+      margin-top:18px;
       color:var(--txt-light);
       font-size:14px;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -209,7 +224,7 @@
       display:grid;
       grid-template-columns: repeat(4, 1fr);
       gap:14px;
-      margin-top:24px;
+      margin-top:20px;
     }
     .countdown-box{
       padding:20px 12px;
@@ -228,7 +243,7 @@
 
     /* Map section */
     .map-section{
-      margin-top:28px;
+      margin-top:22px;
       padding:24px;
       border-radius:16px;
       background: rgba(255,255,255,.25);
@@ -261,7 +276,7 @@
 
     /* RSVP Form */
     .rsvp-form{
-      margin-top:24px;
+      margin-top:20px;
       text-align:left;
       padding:28px;
       border:1.5px solid var(--line);
@@ -347,8 +362,8 @@
     }
 
     footer{
-      margin-top:70px;
-      padding-top:35px;
+      margin-top:50px;
+      padding-top:30px;
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
